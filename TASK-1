@@ -1,0 +1,72 @@
+MACHINE LEARNING TECHNIQUES
+ 
+TASK-1
+
+% Representation and Learning of Boolean Functions in Machine Learning
+clc; clear; close all;
+
+% Define truth tables for AND, OR, NOT, and XOR gates
+AND_inputs = [0 0; 0 1; 1 0; 1 1];
+AND_targets = [0; 0; 0; 1];
+
+OR_inputs = [0 0; 0 1; 1 0; 1 1];
+OR_targets = [0; 1; 1; 1];
+
+NOT_inputs = [0; 1];
+NOT_targets = [1; 0];
+
+XOR_inputs = [0 0; 0 1; 1 0; 1 1];
+XOR_targets = [0; 1; 1; 0];
+
+% Train and Test the Perceptron for AND Gate
+disp('Training AND Gate:');
+AND_net = perceptron;
+AND_net = train(AND_net, AND_inputs', AND_targets');
+AND_outputs = AND_net(AND_inputs')';
+disp('AND Gate Outputs:');
+disp(AND_outputs);
+
+% Train and Test the Perceptron for OR Gate
+disp('Training OR Gate:');
+OR_net = perceptron;
+OR_net = train(OR_net, OR_inputs', OR_targets');
+OR_outputs = OR_net(OR_inputs')';
+disp('OR Gate Outputs:');
+disp(OR_outputs);
+
+% Train and Test the Perceptron for NOT Gate
+disp('Training NOT Gate:');
+NOT_net = perceptron;
+NOT_net = train(NOT_net, NOT_inputs', NOT_targets');
+NOT_outputs = NOT_net(NOT_inputs')';
+disp('NOT Gate Outputs:');
+disp(NOT_outputs);
+
+% Train and Test a Feedforward Network for XOR Gate
+disp('Training XOR Gate:');
+XOR_net = feedforwardnet(2); % 2 hidden neurons
+XOR_net = train(XOR_net, XOR_inputs', XOR_targets');
+XOR_outputs = XOR_net(XOR_inputs')';
+XOR_outputs = round(XOR_outputs); % Round outputs to binary values
+disp('XOR Gate Outputs:');
+disp(XOR_outputs);
+
+% Visualize Results
+figure;
+subplot(2,2,1);
+gscatter(AND_inputs(:,1), AND_inputs(:,2), AND_targets, 'rb', 'ox');
+title('AND Gate Training Data');
+
+subplot(2,2,2);
+gscatter(OR_inputs(:,1), OR_inputs(:,2), OR_targets, 'rb', 'ox');
+title('OR Gate Training Data');
+
+subplot(2,2,3);
+bar([NOT_inputs NOT_targets], 'grouped');
+title('NOT Gate Training Data');
+legend('Input', 'Target');
+
+subplot(2,2,4);
+gscatter(XOR_inputs(:,1), XOR_inputs(:,2), XOR_targets, 'rb', 'ox');
+title('XOR Gate Training Data');
+
